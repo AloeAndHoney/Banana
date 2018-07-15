@@ -1,0 +1,28 @@
+(define (ThreeSquare x)
+  (* x x x))
+
+(define (square x)
+  (* x x))
+
+(define (another guess x)
+  (+ (/ x
+        (square guess))
+     (* 2 guess)))
+
+(define (improve-3-half guess x)
+  (/ (another guess x)
+     3))
+
+(define (good-enough? guess x)
+  (< (abs (- (ThreeSquare guess)
+             x))
+     0.00001))
+
+(define (kyb-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (kyb-iter (improve-3-half guess x)
+                x)))
+
+(define (kyb x)
+  (kyb-iter 1.0 x))
